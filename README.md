@@ -1,5 +1,7 @@
 # SyriaTel Customer Churn Prediction
 
+![Project_Photo](images/Profile_photo.jpg)
+
 Predicting which customers are likely to leave SyriaTel’s telecom services using machine learning.
 
 **Author** by [Tinah Ngei](https://github.com/Tinah-91)
@@ -7,6 +9,28 @@ Predicting which customers are likely to leave SyriaTel’s telecom services usi
 ## Project Overview
 
 Customer churn is a critical metric for telecom providers like SyriaTel. This project aims to develop machine learning models that predict whether a customer will churn based on their usage patterns and plan details. Predicting churn helps the company take proactive measures, reduce loss, and enhance customer satisfaction.
+
+---
+## Repository Structure
+
+```plaintext
+ SyriaTel-Customer-Churn/
+│
+├── 📁 data/
+│   └── syria_tel_churn.csv
+├── 📁 images/
+│   ├── churn_distribution.png
+│   ├── churn_by_state_top20.png
+│   ├── heatmap_correlations.png
+│   ├── conf_matrix_all_models.png
+│   ├── roc_curves_all_models.png
+│   └── model_scores_comparison.png
+├── 📁 notebooks/
+│   └── final_modeling.ipynb
+├── 📄 README.md
+├── 📄 requirements.txt
+└── 📄 .gitignore
+```
 
 ---
 
@@ -48,13 +72,6 @@ We explored:
 - Relationship between **customer service calls and churn**
 - Impact of **international plan** on churn
 
-### Recommended Plots for `images/` folder
-
-1. `churn_distribution.png` – Overall churn vs non-churn
-2. `churn_by_state_top20.png` – Top 20 states by churn
-3. `churn_by_service_calls.png` – Service calls vs churn
-4. `heatmap_correlations.png` – Feature correlation matrix
-
 ---
 
 ## Machine Learning
@@ -75,10 +92,11 @@ Each model was trained using the same preprocessed dataset and evaluated using:
 - **ROC Curve & AUC**
 - **Classification Report** (Accuracy, Precision, Recall, F1-Score)
 
-### Suggested Image Exports:
-- `conf_matrix_all_models.png`
-- `roc_curves_all_models.png`
-- `model_scores_comparison.png`
+### Graph of ROC Curve
+![ROC Curve](images/ROC%20curve%20comparison.png)
+
+### Graph of Comparison
+![model performance](images/model%20performance%20comparison.png)
 
 ---
 
@@ -112,26 +130,6 @@ Each model was trained using the same preprocessed dataset and evaluated using:
 
 ---
 
-## Repository Structure
-
-```plaintext
- SyriaTel-Customer-Churn/
-│
-├── 📁 data/
-│   └── syria_tel_churn.csv
-├── 📁 images/
-│   ├── churn_distribution.png
-│   ├── churn_by_state_top20.png
-│   ├── heatmap_correlations.png
-│   ├── conf_matrix_all_models.png
-│   ├── roc_curves_all_models.png
-│   └── model_scores_comparison.png
-├── 📁 notebooks/
-│   └── final_modeling.ipynb
-├── 📄 README.md
-├── 📄 requirements.txt
-└── 📄 .gitignore
-
 ## How to Run
 
 1. **Clone the repository:**
@@ -148,8 +146,9 @@ Each model was trained using the same preprocessed dataset and evaluated using:
 
  ```
     jupyter notebook SyriaTel Customer Churn.ipynb
+```
 
-# License
+### License
 
 This project is licensed under the MIT License
 
