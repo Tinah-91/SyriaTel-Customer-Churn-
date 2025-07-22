@@ -4,131 +4,133 @@ Predicting which customers are likely to leave SyriaTel’s telecom services usi
 
 **Author** by [Tinah Ngei](https://github.com/Tinah-91)
 
+## Project Overview
+
+Customer churn is a critical metric for telecom providers like SyriaTel. This project aims to develop machine learning models that predict whether a customer will churn based on their usage patterns and plan details. Predicting churn helps the company take proactive measures, reduce loss, and enhance customer satisfaction.
+
+---
+
 ## Business Objective
 
-SyriaTel wants to:
-
-- Identify customers who are likely to churn.
-- Understand why they churn.
-- Implement proactive retention strategies.
-
- Predict churn  
- Understand drivers of churn  
- Recommend customer retention strategies
+- Identify **customers likely to churn**
+- Enable **targeted retention strategies**
+- Minimize customer loss and maximize revenue
 
 ---
 
-## Dataset Description
+## Data Understanding
 
-The dataset contains 3,333 customer records and 20+ features including:
+The dataset consists of 3,333 customer records with 20+ features, including:
 
-| Feature                  | Description                                 |
-|--------------------------|---------------------------------------------|
-| `account length`         | Days a customer has been active             |
-| `international plan`     | Whether they have an international plan     |
-| `voice mail plan`        | Whether they have a voicemail plan          |
-| `total day minutes`      | Minutes spent during the day                |
-| `customer service calls` | Number of times customer called support     |
-| `churn`                  | Target: Yes (churned) / No (not churned)    |
+- **Customer Plan Details**: International Plan, Voice Mail Plan
+- **Usage Stats**: Total Day/Evening/Night/International Minutes and Charges
+- **Customer Service Interactions**
+- **Location**: State
+
+The target variable is `churn` (Yes/No).
 
 ---
 
-## Data Preprocessing
+## Data Preparation
 
-We:
+- Converted categorical features using **One-Hot Encoding**
+- Scaled numerical features using **StandardScaler**
+- Addressed class imbalance via **Stratified Train-Test Split (80/20)**
+- Checked for missing values and data types
 
-- Cleaned and encoded categorical data.
-- Handled multicollinearity.
-- Scaled features for models like SVM and KNN.
-- Performed a stratified 80/20 train-test split.
+---
 
 ## Exploratory Data Analysis (EDA)
 
-We examined:
+We explored:
 
-- Churn distribution
-- Categorical relationships (e.g., churn by plan type)
-- Correlation heatmaps
+- **Churn distribution across States**
+- Relationship between **customer service calls and churn**
+- Impact of **international plan** on churn
 
-**Key Visuals:**
+### Recommended Plots for `images/` folder
 
-- ![Churn by International Plan](images/churn_by_international_plan.png)
-- ![Churn by Voicemail Plan](images/churn_by_voice_mail_plan.png)
-- ![Top 20 State Distribution](images/top20_state_churn_distribution.png)
-- ![Correlation Heatmap](images/correlation_heatmap.png)
-
----
-
-## Machine Learning Models
-
-We trained and evaluated five classifiers:
-
-| Model                | Type               |
-|----------------------|--------------------|
-| Logistic Regression  | Linear             |
-| Random Forest        | Ensemble (Bagging) |
-| K-Nearest Neighbors  | Distance-based     |
-| Support Vector Machine | Margin-based    |
-| XGBoost              | Ensemble (Boosting)|
-
-**Evaluation Metrics:**
-
-- Accuracy
-- Precision, Recall, F1-Score
-- Confusion Matrix
-- ROC Curve & AUC
+1. `churn_distribution.png` – Overall churn vs non-churn
+2. `churn_by_state_top20.png` – Top 20 states by churn
+3. `churn_by_service_calls.png` – Service calls vs churn
+4. `heatmap_correlations.png` – Feature correlation matrix
 
 ---
 
-## Model Evaluation Summary
+## Machine Learning
 
-| Model                | Accuracy | Precision | Recall | F1 Score | AUC  |
-|----------------------|----------|-----------|--------|----------|------|
-| Logistic Regression  | 87%      | 75%       | 60%    | 66%      | 0.86 |
-| KNN                  | 85%      | 71%       | 58%    | 64%      | 0.82 |
-| Random Forest        | 90%      | 83%       | 67%    | 74%      | 0.91 |
-| SVM                  | 86%      | 74%       | 62%    | 67%      | 0.85 |
-| XGBoost              | **91%**  | **85%**   | **69%**| **76%**  | **0.93** ✅ Best Model
+We used and compared **5 classification models**:
 
-**ROC Curve:**
-![ROC Curves](images/model_roc_comparison.png)
+| Model                 | Notes                          |
+|----------------------|--------------------------------|
+| Logistic Regression  | Baseline linear classifier     |
+| K-Nearest Neighbors  | Instance-based learning        |
+| Support Vector Machine (SVM) | Effective in high-dimensional space |
+| Random Forest Classifier | Ensemble decision trees     |
+| XGBoost              | High-performance gradient boosting |
+
+Each model was trained using the same preprocessed dataset and evaluated using:
+
+- **Confusion Matrix**
+- **ROC Curve & AUC**
+- **Classification Report** (Accuracy, Precision, Recall, F1-Score)
+
+### Suggested Image Exports:
+- `conf_matrix_all_models.png`
+- `roc_curves_all_models.png`
+- `model_scores_comparison.png`
 
 ---
 
-## Business Recommendations
+### Evaluation Summary
 
-Based on insights and feature importance:
+| Model               | Accuracy | Precision | Recall  | F1-Score | AUC     |
+|--------------------|----------|-----------|---------|----------|---------|
+| **XGBoost**         | 94.90%   | 88.89%    | 74.23% | 80.90%   | 88.95%  |
+| Random Forest       | 93.25%   | 91.94%    | 58.76% | 71.70%   | 88.92%  |
+| Logistic Regression | 86.36%   | 56.52%    | 26.80% | 36.36%   | 80.15%  |
+| SVM                 | 87.41%   | 80.95%    | 17.53% | 28.81%   | 86.54%  |
+| KNN                 | 85.46%   | 50.00%    | 5.15%  | 9.35%    | 67.10%  |
 
-- Customers with **many support calls** → **Improve customer experience**
-- Customers with **international plans** → **Review pricing, usability**
-- Customers without **voice mail plans** → **Upsell bundled services**
-- Target customers by **state** → **Run regional campaigns**
+✅ **XGBoost achieved the highest AUC and F1-Score**, making it the best-performing model for this churn prediction task.
 
 ---
 
-## Conclusion
+## Recommendations
 
-- Built and evaluated 5 ML models.
-- XGBoost gave the best performance (91% accuracy, 0.93 AUC).
-- Identified key churn drivers to reduce loss.
+- **Customers with many service calls** should be flagged for proactive engagement.
+- **Users with international plans** show a higher churn rate — revise plan benefits or offer loyalty incentives.
+- Target marketing efforts in **top churn-prone states**.
+
+---
+
+## Next Steps
+
+- Integrate churn model into SyriaTel’s CRM for live scoring
+- Conduct **A/B tests** on targeted retention campaigns
+- Collect additional features: billing history, tenure, contract type
 
 ---
 
 ## Repository Structure
 
-├── images/
-│   ├── churn_by_international_plan.png
-│   ├── churn_by_voice_mail_plan.png
-│   ├── correlation_heatmap.png
-│   ├── top20_state_churn_distribution.png
-│   ├── model_roc_comparison.png
-│   └── feature_importance_xgboost.png
-├── data/
-│   └── churn_clean.csv
-├── notebooks/
-│   └── SyriaTel_Churn_Analysis.ipynb
-├── README.md
-└── requirements.txt
+```plaintext
+ SyriaTel-Customer-Churn/
+│
+├── 📁 data/
+│   └── syria_tel_churn.csv
+├── 📁 images/
+│   ├── churn_distribution.png
+│   ├── churn_by_state_top20.png
+│   ├── heatmap_correlations.png
+│   ├── conf_matrix_all_models.png
+│   ├── roc_curves_all_models.png
+│   └── model_scores_comparison.png
+├── 📁 notebooks/
+│   └── final_modeling.ipynb
+├── 📄 README.md
+├── 📄 requirements.txt
+└── 📄 .gitignore
 
 ## How to Run
 
